@@ -5,8 +5,9 @@ using UnityEngine;
 public class PipeSpawnScript : MonoBehaviour
 {
     public GameObject pipe;
-    public float spawnRate = 2;
-    public float timer = 0;
+    public float spawnRate = 5; // seconds between spawn
+    public float timer = 0; // start timer
+    public float heightOffset = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -19,18 +20,27 @@ public class PipeSpawnScript : MonoBehaviour
     {
         if ( timer < spawnRate)
         {
+
             timer += Time.deltaTime;
+            // Time.deltaTime keeps things consistant across different computers framerates etc.
             //timer = timer + Time.deltaTime;
         }
         else
         {
             spawnPipe();
             timer = 0;
+            Debug.Log("Timer");
+
         }
     }
 
     void spawnPipe()
     {
-        Instantiate(pipe, transform.position, transform.rotation);
+        float lowestPoint = transform.position.y - heightOffset;
+        float highestPoint = transform.position.y + heightOffset;
+
+        Instantiate(pipe, new Vector3(transform.position.x, Random.Range(lowestPoint, highestPoint), 0 ), transform.rotation);
+        // new Vector3 takes in 3 parameters (x, y, z)
+        // new Random.Range takes in 2 parameters (0, 0) high, low
     }
 }

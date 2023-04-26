@@ -6,18 +6,27 @@ public class BirdScript : MonoBehaviour
 {
     public Rigidbody2D myRigidBody; // links this script to the bird gameBody
     public float flapStrength; // adds public float (integer field) to tinker with flapstrenth in the UI to save time coding
+    public LogicScript logic;
+    public bool birdIsAlive = true;
 
-    
     void Start() // Start is called before the first frame update
     {
-        gameObject.name = "Bad Bitch Bird";
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
     }
 
     void Update() // Update is called once per frame
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && birdIsAlive)
         {
             myRigidBody.velocity = Vector2.up * flapStrength;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision) // cause pipes are solid 2d not set to be triggers
+    {
+        Debug.Log("Collision Detected");
+        logic.GameOver();
+        birdIsAlive = false;
+    }
+
 }
