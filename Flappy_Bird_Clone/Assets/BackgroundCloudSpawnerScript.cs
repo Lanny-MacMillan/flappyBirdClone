@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CloudSpawner : MonoBehaviour
+public class BackgroundCloudSpawnerScript : MonoBehaviour
 {
     public GameObject clouds;
-    public float spawnRate = 8; // seconds between spawn
+    public float spawnRate = 30; // seconds between spawn
     public float timer = 0; // start timer
-    public float cloudOffset = 13;
+    public float cloudOffset = 3;
 
 
     // Start is called before the first frame update
