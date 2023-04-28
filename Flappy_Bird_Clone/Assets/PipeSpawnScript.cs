@@ -29,7 +29,6 @@ public class PipeSpawnScript : MonoBehaviour
         {
             spawnPipe();
             timer = 0;
-            Debug.Log("Timer");
 
         }
     }

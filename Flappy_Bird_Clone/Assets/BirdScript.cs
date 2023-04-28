@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BirdScript : MonoBehaviour
 {
+    public float deadZone = -15; // sets a deadZone so when the bird goes below screen and hit -15y it will trigger game over
     public Rigidbody2D myRigidBody; // links this script to the bird gameBody
     public float flapStrength; // adds public float (integer field) to tinker with flapstrenth in the UI to save time coding
     public LogicScript logic;
@@ -20,11 +21,19 @@ public class BirdScript : MonoBehaviour
         {
             myRigidBody.velocity = Vector2.up * flapStrength;
         }
+        EnteredDeadZone();
+    }
+
+    private void EnteredDeadZone()
+    {
+        if (transform.position.y < deadZone )
+        {
+            logic.GameOver();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) // cause pipes are solid 2d not set to be triggers
     {
-        Debug.Log("Collision Detected");
         logic.GameOver();
         birdIsAlive = false;
     }
