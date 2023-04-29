@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BirdScript : MonoBehaviour
 {
+    public AudioSource flap; // identify flap sfx
     public float deadZone = -15; // sets a deadZone so when the bird goes below screen and hit -15y it will trigger game over
     public Rigidbody2D myRigidBody; // links this script to the bird gameBody
     public float flapStrength; // adds public float (integer field) to tinker with flapstrenth in the UI to save time coding
@@ -13,6 +14,7 @@ public class BirdScript : MonoBehaviour
     void Start() // Start is called before the first frame update
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
+        flap = GetComponent<AudioSource>(); // Find and identify flap audio file
     }
 
     void Update() // Update is called once per frame
@@ -20,6 +22,7 @@ public class BirdScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && birdIsAlive)
         {
             myRigidBody.velocity = Vector2.up * flapStrength;
+            flap.Play();
         }
         EnteredDeadZone();
     }

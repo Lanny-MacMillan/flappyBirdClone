@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PipeMiddleScript : MonoBehaviour
 {
+    public AudioSource pointSFX;
     public LogicScript logic;
 
     // Start is called before the first frame update
@@ -13,6 +14,8 @@ public class PipeMiddleScript : MonoBehaviour
         // then it will lookthrough the components looking for LogicScript, i f it finds that it will put
         // that in our refernce slot
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
+        pointSFX = GetComponent<AudioSource>(); // Find and identify pointSFX audio
+
     }
 
     // Update is called once per frame
@@ -25,6 +28,7 @@ public class PipeMiddleScript : MonoBehaviour
         {
             if ( collision.gameObject.layer == 3 ) 
             logic.addScore(1); // logic refers to object script from above
+            pointSFX.Play();
 
         }
     }
